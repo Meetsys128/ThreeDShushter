@@ -592,8 +592,8 @@ plrdwn.position.x = plr.position.x;
 plrdwn.position.z = plr.position.z;
 for (let i = 0; i < Ebullets.length;i++){
 
-Ebullets[i].obj.position.x += 0.01* Ebullets[i].eX;
-Ebullets[i].obj.position.z += 0.01* Ebullets[i].eZ;
+Ebullets[i].obj.position.x += 0.006* Ebullets[i].eX;
+Ebullets[i].obj.position.z += 0.006* Ebullets[i].eZ;
 Ebullets[i].time --;
 if(Ebullets.time < 0){
 	scene.remove(Ebullets[i].obj);
@@ -612,7 +612,7 @@ if(Collide(Ebullets[i].obj,plrdwn,distance)){
 
 //target projectiles
 if(Eclock < 0){
-Eclock = 200;
+Eclock = 100;
 
 	for(let i = 0; i < targets.length;i++){	
 		const material10 = new THREE.MeshBasicMaterial(0xFFFFFF);
@@ -623,7 +623,7 @@ Eclock = 200;
 			bullet.position.z = targets[i].position.z;
 			bullet.scale.set(0.1,0.1,0.1);
 			scene.add(bullet);
-			const buit = new Eproj(bullet,(plr.position.x+(Math.random()*4-2)) - targets[i].position.x,(plr.position.z+(Math.random()*4 - 2)) - targets[i].position.z);
+			const buit = new Eproj(bullet,(plr.position.x+(Math.random()*15-2)) - targets[i].position.x,(plr.position.z+(Math.random()*15 - 2)) - targets[i].position.z);
 			Ebullets.push(buit);
 			/*
 		if(targets[i].position.x > plr.position.x){
