@@ -1,0 +1,20 @@
+﻿html {
+    font-size: 16px;
+    background-color: #362a3b;
+    position: relative;
+    min-height: 100%;
+    
+    
+}
+
+body {
+    margin-bottom: 60px;
+    background-color: #362a3b;
+    color: #5eb76e;
+   /* color: #7fee93; */
+}
+a {
+    font-size: 20px;
+    color: #e0bf3e;
+   
+}
