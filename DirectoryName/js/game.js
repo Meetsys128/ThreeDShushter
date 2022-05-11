@@ -509,7 +509,7 @@ if(timeC < 0){
 		HP += 1;
 		hpshow.innerHTML = "HP:"+HP;
 for (let r = 0; r < amount;r++){
-const mesajarjar = new THREE.BoxGeometry(10,10);
+const mesajarjar = new THREE.BoxGeometry(1,1);
 const cuba = new THREE.Mesh(mesajarjar,material8);
 cuba.position.y = 10;
 cuba.position.x = 2**(Math.random())*30 - 40;
