@@ -453,17 +453,16 @@ let bullettime = 10;
 function animate() {
 				requestAnimationFrame( animate );
 
-	if(timeE < 0 && Kshift || timeE < 0 && Kspace){
-		if(Kshift){
-		speed = 0.6 + (timeE*-1);
-		}
+	if(timeE < 0 && Kspace){
+		
 		if(Kspace){
+			speed = 0.6 + (timeE*-1);
 		bullettime = 2;
 		}
-	timeE += 2;
+	timeE += 1;
 	
 	}
-	else if (timeE > -10){
+	else if (timeE > -100){
 	timeE --;
 		speed = 0.06;
 		bullettime = 10;
