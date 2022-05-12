@@ -1,6 +1,6 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.117.1/build/three.module.js';
 
-console.log("game v1.1.6");
+console.log("game v1.1.7");
 
 let change = 0;
 let last = 0;
@@ -157,11 +157,9 @@ light.shadow.map = null;
 
 	  }
 	  break;
-	  case(" "): Kspace = true;break;
+	  case(" "): console.log("space"); Kspace = true;break;
   }
-	switch(code){
-	 case("shift"): Kshift = true;console.log("shift");break;
-	}
+	
 }, false);
 document.addEventListener('keyup', (event) => {
   var name = event.key;
@@ -179,10 +177,7 @@ document.addEventListener('keyup', (event) => {
 
 	  case(" "): Kspace = false;break;
   }
-	switch(code){
-	 case("shift"): Kshift = false;console.log("down");break;
-			
-	}
+	
 }, false);
 //#endregion			
 //#region general init	
