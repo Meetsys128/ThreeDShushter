@@ -455,7 +455,7 @@ let canboost = false;
 function animate() {
 				requestAnimationFrame( animate );
 
-	if(canboost && Space){
+	if(canboost && Kspace){
 	   boost = true;
 	   }
 	
