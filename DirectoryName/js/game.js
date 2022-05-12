@@ -1,6 +1,6 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.117.1/build/three.module.js';
 
-console.log("game v1.1.5");
+console.log("game v1.1.6");
 
 let change = 0;
 let last = 0;
@@ -9,6 +9,8 @@ let ev = null;
 
 //#region control keys
 let Kshift = false;
+let Kspace = false;
+
 let Kw = false;
 			let Ka = false;
 			let Ks = false;
@@ -18,7 +20,7 @@ let Kw = false;
 			let Kk = false;
 			let Kl = false;
 let speed = 0.06;
-			let Kspace = false;
+			
 			let shadows = 0;
 document.addEventListener('keypress', (event) => {
   var name = event.key;
@@ -32,7 +34,9 @@ document.addEventListener('keypress', (event) => {
 	  case("j"): Kj = true;break;
 	  case("k"): Kk = true;break;
 	  case("l"): Kl = true;break;
-	  case("shift"): Kshift = true;console.log("shift");break;
+	  
+		  
+		  
 	  case("p"):
 	  
 	  if(shadows == 0){shadows = 1;
@@ -153,8 +157,11 @@ light.shadow.map = null;
 
 	  }
 	  break;
-	  case("space"): Kspace = true;break;
+	  case(" "): Kspace = true;break;
   }
+	switch(code){
+	 case("shift"): Kshift = true;console.log("shift");break;
+	}
 }, false);
 document.addEventListener('keyup', (event) => {
   var name = event.key;
@@ -168,10 +175,14 @@ document.addEventListener('keyup', (event) => {
 	  case("j"): Kj = false;break;
 	  case("k"): Kk = false;break;
 	  case("l"): Kl = false;break;
-	 case("shift"): Kshift = false;console.log("shiftUp");break;
+	
 
-	  case("space"): Kspace = false;break;
+	  case(" "): Kspace = false;break;
   }
+	switch(code){
+	 case("shift"): Kshift = false;console.log("down");break;
+			
+	}
 }, false);
 //#endregion			
 //#region general init	
@@ -459,7 +470,7 @@ function animate() {
 	}
 	else if (timeE > -10){
 	timeE --;
-		speed = 0.6;
+		speed = 0.06;
 		bullettime = 10;
 	}
 	
