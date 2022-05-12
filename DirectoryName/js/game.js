@@ -443,22 +443,31 @@ let timeC = 0;
 let timeD = 0;
 let timeE = 0;
 let amount = 5;
+let bullettime = 10;
 function animate() {
 				requestAnimationFrame( animate );
 
-	if(timeE < 0 && Kshift){
+	if(timeE < 0 && Kshift || timeE < 0 && Kspace){
+		if(Kshift){
+		speed = 0.6 + (timeE*-1);
+		}
+		if(Kspace){
+		bullettime = 2;
+		}
 	timeE += 2;
-	speed = 0.6 + (timeE*-1);
+	
 	}
 	else if (timeE > -10){
 	timeE --;
+		speed = 0.6;
+		bullettime = 10;
 	}
 	
 	
 
 
 if(timeD < 0 && mouse){
-timeD = 10;
+timeD = bullettime;
 			
 let rotFWD = -1;
 let rot = -plr.rotation.y / Math.PI; let vari = Math.abs(rot);	if(vari > 0.5 &&vari < 1.5){rotFWD *= -1}
