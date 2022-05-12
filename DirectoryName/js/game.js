@@ -8,6 +8,7 @@ let ev = null;
 
 
 //#region control keys
+let Kshift = false;
 let Kw = false;
 			let Ka = false;
 			let Ks = false;
@@ -16,6 +17,7 @@ let Kw = false;
 			let Kj = false;
 			let Kk = false;
 			let Kl = false;
+let speed = 0.06;
 			let Kspace = false;
 			let shadows = 0;
 document.addEventListener('keypress', (event) => {
@@ -30,6 +32,7 @@ document.addEventListener('keypress', (event) => {
 	  case("j"): Kj = true;break;
 	  case("k"): Kk = true;break;
 	  case("l"): Kl = true;break;
+	  case("shift"): Kshift = true;console.log("shift");break;
 	  case("p"):
 	  
 	  if(shadows == 0){shadows = 1;
@@ -165,7 +168,7 @@ document.addEventListener('keyup', (event) => {
 	  case("j"): Kj = false;break;
 	  case("k"): Kk = false;break;
 	  case("l"): Kl = false;break;
-	
+	 case("shift"): Kshift = false;console.log("shiftUp");break;
 
 	  case("space"): Kspace = false;break;
   }
@@ -438,10 +441,20 @@ class Eproj{
 }
 let timeC = 0;
 let timeD = 0;
+let timeE = 0;
 let amount = 5;
 function animate() {
 				requestAnimationFrame( animate );
 
+	if(timeE < 0 && Kshift){
+	timeE += 2;
+	speed = 0.6 + (timeE*-1);
+	}
+	else if (timeE > -10){
+	timeE --;
+	}
+	
+	
 
 
 if(timeD < 0 && mouse){
@@ -794,16 +807,16 @@ else if(rot < 0){
 						
 						if(rotFWD <= 0){
 							
-plr.position.z -= 0.1*rotFWD;
+plr.position.z -= speed*rotFWD;
 					}
 					}
 					else if(absZ == 1){
 						if(rotFWD >= 0){
-plr.position.z -= 0.1*rotFWD;
+plr.position.z -= speed*rotFWD;
 					}
 					}
 					else{
-						plr.position.z -= 0.1*rotFWD;
+						plr.position.z -= speed*rotFWD;
 					}
 					
 					if(absX == -1){
@@ -815,11 +828,11 @@ plr.position.x -= 0.1*rot;
 					}
 					else if(absX == 1){
 						if(rot <= 0){
-plr.position.x -= 0.1*rot;
+plr.position.x -= speed*rot;
 					}
 					}
 					else{
-						plr.position.x -= 0.1*rot;
+						plr.position.x -= speed*rot;
 					}
 				
 					
@@ -828,32 +841,32 @@ plr.position.x -= 0.1*rot;
 					if(absZ == -1){
 						if(rot <= 0){
 						
-							plr.position.z -= 0.1*rot;
+							plr.position.z -= speed*rot;
 					}
 					}
 					else if(absZ == 1){
 						if(rot >= 0){
-							plr.position.z -= 0.1*rot;
+							plr.position.z -= speed*rot;
 					}
 					}
 					else{
-						plr.position.z -= 0.1*rot;
+						plr.position.z -= speed*rot;
 					}
 
 
 					if(absX == -1){
 						if(rotFWD <= 0){
 						
-							plr.position.x += 0.1*rotFWD;
+							plr.position.x += speed*rotFWD;
 					}
 					}
 					else if(absX == 1){
 						if(rotFWD >= 0){
-							plr.position.x += 0.1*rotFWD;
+							plr.position.x += speed*rotFWD;
 					}
 					}
 					else{
-						plr.position.x += 0.1*rotFWD;
+						plr.position.x += speed*rotFWD;
 					}
 
 				
@@ -864,32 +877,32 @@ plr.position.x -= 0.1*rot;
 					if(absZ == -1){
 						if(rotFWD >= 0){
 					
-plr.position.z += 0.1*rotFWD;
+plr.position.z += speed*rotFWD;
 					}
 					}
 					else if(absZ == 1){
 						if(rotFWD <= 0){
-plr.position.z += 0.1*rotFWD;
+plr.position.z += speed*rotFWD;
 					}
 					}
 					else{
-						plr.position.z += 0.1*rotFWD;
+						plr.position.z += speed*rotFWD;
 					}
 
 
 					if(absX == -1){
 						if(rot <= 0){
 					
-plr.position.x += 0.1*rot;
+plr.position.x += speed*rot;
 					}
 					}
 					else if(absX == 1){
 						if(rot >= 0){
-plr.position.x += 0.1*rot;
+plr.position.x += speed*rot;
 					}
 					}
 					else{
-						plr.position.x += 0.1*rot;
+						plr.position.x += speed*rot;
 					}
 					
 			
@@ -899,31 +912,31 @@ plr.position.x += 0.1*rot;
 					if(absZ == -1){
 						if(rot >= 0){
 						
-							plr.position.z += 0.1*rot;
+							plr.position.z += speed*rot;
 					}
 					}
 					else if(absZ == 1){
 						if(rot <= 0){
-							plr.position.z += 0.1*rot;
+							plr.position.z += speed*rot;
 					}
 					}
 					else{
-						plr.position.z += 0.1*rot;
+						plr.position.z += speed*rot;
 					}
 
 					if(absX == -1){
 						if(rotFWD >= 0){
 						
-							plr.position.x -= 0.1*rotFWD;
+							plr.position.x -= speed*rotFWD;
 					}
 					}
 					else if(absX == 1){
 						if(rotFWD <= 0){
-							plr.position.x -= 0.1*rotFWD;
+							plr.position.x -= speed*rotFWD;
 					}
 					}
 					else{
-						plr.position.x -= 0.1*rotFWD;
+						plr.position.x -= speed*rotFWD;
 					}
 
 				
