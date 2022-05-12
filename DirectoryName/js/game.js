@@ -1,6 +1,6 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.117.1/build/three.module.js';
 
-console.log("game v1.1.7");
+console.log("game v1.1.81");
 
 let change = 0;
 let last = 0;
@@ -450,16 +450,39 @@ let timeD = 0;
 let timeE = 0;
 let amount = 5;
 let bullettime = 10;
+let boost = false;
+let canboost = false;
 function animate() {
 				requestAnimationFrame( animate );
 
-	if(timeE < 0 && Kspace){
+	if(canboost && Space{
+	   boost = true;
+	   }
+	
+	if(!boost){
+timeE += 1;
+	if(timeE > 250){
+	canboost = true;
+	}
+}
+	if(boost){
+		canboost = false;
+	timeE -= 2;
+	speed = 0.6 + (timeE*-0.05);
+	bullettime = 2;
+	if(timeE < 0){
+	boost = false;
 		
+	}	
+	}
+	/*
+	if(timeE < 50 && Kspace){
+	timeE += 1;
 		if(Kspace){
 			speed = 0.6 + (timeE*-1);
 		bullettime = 2;
 		}
-	timeE += 1;
+	
 	
 	}
 	else if (timeE > -100){
@@ -467,7 +490,7 @@ function animate() {
 		speed = 0.06;
 		bullettime = 10;
 	}
-	
+	*/
 	
 
 
