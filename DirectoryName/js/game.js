@@ -452,9 +452,11 @@ let amount = 5;
 let bullettime = 10;
 let boost = false;
 let canboost = false;
+const dash = document.getElementById("displaydash");
 function animate() {
 				requestAnimationFrame( animate );
 	console.log(timeE+","+canboost+","+boost);
+	dash.innerHTML = timeE;
 	if(canboost && Kspace){
 	   boost = true;
 	   }
