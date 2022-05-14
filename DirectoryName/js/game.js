@@ -1,6 +1,6 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.117.1/build/three.module.js';
 
-console.log("game v1.1.102");
+console.log("game v1.1.103");
 
 let change = 0;
 let last = 0;
@@ -19,7 +19,7 @@ let Kw = false;
 			let Kj = false;
 			let Kk = false;
 			let Kl = false;
-let speed = 0.06;
+let speed = 0.1;
 			
 			let shadows = 0;
 document.addEventListener('keypress', (event) => {
@@ -455,7 +455,7 @@ let canboost = false;
 const dash = document.getElementById("displaydash");
 function animate() {
 				requestAnimationFrame( animate );
-	console.log(timeE+","+canboost+","+boost);
+	console.log(timeE+","+canboost+","+boost+","+speed);
 	dash.innerHTML = timeE;
 	if(canboost && Kspace){
 	   boost = true;
@@ -464,7 +464,7 @@ function animate() {
 	if(!boost && timeE < 500){
 timeE += 1;
 		bullettime = 10;
-	speed = 0.6;
+	speed = 0.1;
 	if(timeE > 250){
 	canboost = true;
 	}
@@ -473,7 +473,7 @@ timeE += 1;
 		canboost = false;
 	timeE -= 15;
 		bullettime = 2;
-	speed = 0.6 + (timeE/250);
+	speed = 0.1 + (timeE/250);
 	
 	if(timeE < 0){
 	boost = false;
