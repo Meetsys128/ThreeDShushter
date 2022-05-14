@@ -658,7 +658,7 @@ if(Ebullets.time < 0){
 }
 
 
-if(Collide(Ebullets[i].obj,plrdwn,distance+0.2) && !Boost){
+if(Collide(Ebullets[i].obj,plrdwn,distance+0.2) && !boost){
 
 	scene.remove(Ebullets[i].obj);
 	Ebullets.splice(i,1);
