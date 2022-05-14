@@ -434,7 +434,7 @@ return false;
 	return false;
 }
 let Ebullets = [];
-let distance = 0.6;
+let distance = 1;
 let timer = -1;
 let Eclock = 0;
 class Eproj{
@@ -658,7 +658,7 @@ if(Ebullets.time < 0){
 }
 
 
-if(Collide(Ebullets[i].obj,plrdwn,distance+0.2) && !boost){
+if(Collide(Ebullets[i].obj,plrdwn,distance+0.6) && !boost){
 
 	scene.remove(Ebullets[i].obj);
 	Ebullets.splice(i,1);
