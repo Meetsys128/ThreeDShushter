@@ -454,7 +454,7 @@ let boost = false;
 let canboost = false;
 function animate() {
 				requestAnimationFrame( animate );
-
+console.log(timeE+","+canboost+","+boost);
 	if(canboost && Kspace){
 	   boost = true;
 	   }
