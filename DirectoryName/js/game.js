@@ -477,12 +477,13 @@ timeE += 1;
 	boost = false;
 		
 	}	
-		else 
+		
+	}
+	else 
 		{
 		bullettime = 10;
 	speed = 0.6;
 		}
-	}
 	/*
 	if(timeE < 50 && Kspace){
 	timeE += 1;
