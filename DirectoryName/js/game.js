@@ -1,6 +1,6 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.117.1/build/three.module.js';
 
-console.log("game v1.1.91");
+console.log("game v1.1.100");
 
 let change = 0;
 let last = 0;
@@ -36,7 +36,7 @@ document.addEventListener('keypress', (event) => {
 	  case("l"): Kl = true;break;
 	  
 		  
-		   case(" "): console.log("space"); Kspace = true;break;
+		   case(" "): Kspace = true;break;
 	  case("p"):
 	  
 	  if(shadows == 0){shadows = 1;
@@ -397,7 +397,7 @@ else if(rot < 0){
 	rotFWD *= 1+rot;
 }
 
-			console.log("gg");
+			
 			const projectile = new THREE.Mesh( geometry5, material5 );
 			projectile.castShadow = true;
 			projectile.position.y = -1;
@@ -454,7 +454,7 @@ let boost = false;
 let canboost = false;
 function animate() {
 				requestAnimationFrame( animate );
-console.log(timeE+","+canboost+","+boost);
+
 	if(canboost && Kspace){
 	   boost = true;
 	   }
@@ -528,7 +528,7 @@ else if(rot < 0){
 	rotFWD *= 1+rot;
 }
 
-			console.log("gg");
+			
 			const projectile = new THREE.Mesh( geometry5, material5 );
 			projectile.castShadow = true;
 			projectile.position.y = -1;
@@ -548,7 +548,7 @@ else {
 }
 if(timeC < 0){
 	timeC = 900;
-	console.log("built");
+	
 	for (let j = 0; j < targets.length;j++){
 		scene.remove(targets[j]);
 		targets.splice(j,1);
@@ -658,7 +658,7 @@ if(Ebullets.time < 0){
 
 
 if(Collide(Ebullets[i].obj,plrdwn,distance)){
-	console.log("ow");
+
 	scene.remove(Ebullets[i].obj);
 	Ebullets.splice(i,1);
 	OnHPChange();
