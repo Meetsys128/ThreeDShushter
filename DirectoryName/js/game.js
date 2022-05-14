@@ -1,6 +1,6 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.117.1/build/three.module.js';
 
-console.log("game v1.1.9");
+console.log("game v1.1.91");
 
 let change = 0;
 let last = 0;
@@ -36,7 +36,7 @@ document.addEventListener('keypress', (event) => {
 	  case("l"): Kl = true;break;
 	  
 		  
-		  
+		   case(" "): console.log("space"); Kspace = true;break;
 	  case("p"):
 	  
 	  if(shadows == 0){shadows = 1;
@@ -157,7 +157,7 @@ light.shadow.map = null;
 
 	  }
 	  break;
-	  case(" "): console.log("space"); Kspace = true;break;
+	 
   }
 	
 }, false);
@@ -459,7 +459,7 @@ function animate() {
 	   boost = true;
 	   }
 	
-	if(!boost){
+	if(!boost && timeE < 500){
 timeE += 1;
 	if(timeE > 250){
 	canboost = true;
@@ -467,8 +467,8 @@ timeE += 1;
 }
 	if(boost){
 		canboost = false;
-	timeE -= 2;
-	speed = 0.6 + (timeE*-0.05);
+	timeE -= 5;
+	speed = 1;
 	bullettime = 2;
 	if(timeE < 0){
 	boost = false;
