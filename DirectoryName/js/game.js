@@ -467,13 +467,19 @@ timeE += 1;
 }
 	if(boost){
 		canboost = false;
-	timeE -= 5;
-	speed = 1;
-	bullettime = 2;
+	timeE -= 15;
+		bullettime = 2;
+	speed = 0.6 + (timeE/250);
+	
 	if(timeE < 0){
 	boost = false;
 		
 	}	
+		else 
+		{
+		bullettime = 10;
+	speed = 0.6;
+		}
 	}
 	/*
 	if(timeE < 50 && Kspace){
