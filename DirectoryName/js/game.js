@@ -1,6 +1,6 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.117.1/build/three.module.js';
 
-console.log("game v1.1.100");
+console.log("game v1.1.101");
 
 let change = 0;
 let last = 0;
@@ -454,7 +454,7 @@ let boost = false;
 let canboost = false;
 function animate() {
 				requestAnimationFrame( animate );
-
+	console.log(timeE+","+canboost+","+boost);
 	if(canboost && Kspace){
 	   boost = true;
 	   }
