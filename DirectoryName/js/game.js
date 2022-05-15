@@ -1,7 +1,7 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.117.1/build/three.module.js';
 import GLTFLoader from 'three-gltf-loader';
-const loader = new GLTFLoader();
-loader.load(
+const loaderGLTF = new GLTFLoader();
+loaderGLTF.load(
 	'../scene.gltf',
 	( gltf ) => {
 		// called when the resource is loaded
