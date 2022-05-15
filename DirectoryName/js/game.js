@@ -1,4 +1,21 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.117.1/build/three.module.js';
+import GLTFLoader from 'three-gltf-loader';
+const loader = new GLTFLoader();
+loader.load(
+	'../scene.gltf',
+	( gltf ) => {
+		// called when the resource is loaded
+		scene.add( gltf.scene );
+	},
+	( xhr ) => {
+		// called while loading is progressing
+		console.log( `${( xhr.loaded / xhr.total * 100 )}% loaded` );
+	},
+	( error ) => {
+		// called when loading has errors
+		console.error( 'An error happened', error );
+	},
+);
 
 console.log("game v1.1.104");
 
