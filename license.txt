@@ -1,0 +1,11 @@
+Model Information:
+* title:	LP34 Flare Gun
+* source:	https://sketchfab.com/3d-models/lp34-flare-gun-e5f1321feb2d4b39bd83e9358c3ee8c4
+* author:	emlase (https://sketchfab.com/emlase)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "LP34 Flare Gun" (https://sketchfab.com/3d-models/lp34-flare-gun-e5f1321feb2d4b39bd83e9358c3ee8c4) by emlase (https://sketchfab.com/emlase) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
