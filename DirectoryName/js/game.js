@@ -2,7 +2,7 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.117.1/build/three.m
 console.log("game v1.1.11");
 import {GLTFLoader} from 'https://cdn.rawgit.com/mrdoob/three.js/master/examples/js/loaders/GLTFLoader.js';
 const loaderGLTF = new GLTFLoader();
-loaderGLTF.load( '../scene.gltf', function ( gltf ) {
+loaderGLTF.load( '../skull_downloadable', function ( gltf ) {
 
 	scene.add( gltf.scene );
 
