@@ -1,8 +1,8 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.117.1/build/three.module.js';
 console.log("game v1.1.11");
-import GLTFLoader from 'https://cdn.rawgit.com/mrdoob/three.js/master/examples/js/loaders/GLTFLoader.js';
+import {GLTFLoader} from 'https://cdn.rawgit.com/mrdoob/three.js/master/examples/js/loaders/GLTFLoader.js';
 const loaderGLTF = new GLTFLoader();
-loader.load( '../scene.gltf', function ( gltf ) {
+loaderGLTF.load( '../scene.gltf', function ( gltf ) {
 
 	scene.add( gltf.scene );
 
