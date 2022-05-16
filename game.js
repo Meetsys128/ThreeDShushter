@@ -27,10 +27,10 @@ let timeE = 0;
 
 //general const
 const geometry = new THREE.BoxGeometry();
-			const material = new THREE.MeshPhongMaterial( { color: 0xFF0088 } );
+			const material = new THREE.MeshBasicMaterial( { color: 0xFF0088 } );
 const geometry5 = new THREE.BoxGeometry();
-const material5 = new THREE.MeshBasicMaterial( { color: 0x88FF88 } );
-const material10 = new THREE.MeshBasicMaterial(0xFFFFFF);
+const material5 = new THREE.MeshBasicMaterial( { color: 0xFFFF00 } );
+
 
 //#region controls
 
@@ -716,7 +716,7 @@ Eclock = 100;
 
 	for(let i = 0; i < targets.length;i++){	
 		
-		const bullet = new THREE.Mesh( geometry5, material10 );
+		const bullet = new THREE.Mesh( geometry5, material );
 			bullet.castShadow = true;
 			bullet.position.y = targets[i].position.y;
 			bullet.position.x = targets[i].position.x;
