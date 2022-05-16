@@ -1,36 +1,56 @@
-console.log("game v1.1.12");
+//imports
 import * as THREE from './three.js-master/build/three.module.js';
-
 import {GLTFLoader} from './three.js-master/examples/jsm/loaders/GLTFLoader.js';
 const loaderGLTF = new GLTFLoader();
 
 
 
 
+//general variables
+let shadows = 0;
 
 
+let distance = 1;
+let amount = 5;
+
+let bullets = [];
+let targets = [];
+let Ebullets = [];
 
 
-let change = 0;
-let last = 0;
-let ev = null;
+let timer = -1;
+let Eclock = 0;
+let timeC = 0;
+let timeD = 0;
+let timeE = 0;
 
 
-//#region control keys
+//general const
+const geometry = new THREE.BoxGeometry();
+			const material = new THREE.MeshPhongMaterial( { color: 0xFF0088 } );
+const geometry5 = new THREE.BoxGeometry();
+const material5 = new THREE.MeshBasicMaterial( { color: 0x88FF88 } );
+const material10 = new THREE.MeshBasicMaterial(0xFFFFFF);
+
+//#region controls
+
+//mouse
+let mouse = false; //mouse held?
+let change = 0; // current - last
+let last = 0; // current => last
+let ev = null; // event holder
+//key vars
 let Kshift = false;
 let Kspace = false;
-
 let Kw = false;
-			let Ka = false;
-			let Ks = false;
-			let Kd = false;
-			let Ki = false;
-			let Kj = false;
-			let Kk = false;
-			let Kl = false;
-let speed = 0.1;
-			
-			let shadows = 0;
+let Ka = false;
+let Ks = false;
+let Kd = false;
+let Ki = false;
+let Kj = false;
+let Kk = false;
+let Kl = false;
+
 document.addEventListener('keypress', (event) => {
   var name = event.key;
   var code = event.code;
@@ -182,53 +202,34 @@ document.addEventListener('keyup', (event) => {
 	  case("j"): Kj = false;break;
 	  case("k"): Kk = false;break;
 	  case("l"): Kl = false;break;
-	
-
 	  case(" "): Kspace = false;break;
   }
 	
 }, false);
 //#endregion			
 //#region general init	
-/*				
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-
-
-
-loader.load( './orange.ma', function ( gltf ) {
-
-	scene.add( gltf.scene );
-
-}, undefined, function ( error ) {
-
-	console.error( error );
-
-} );
-*/
+			//base
 			const scene = new THREE.Scene();
 			const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight , 0.1, 1000 );
 			const renderer = new THREE.WebGLRenderer();
-		
 			renderer.setSize( window.innerWidth - 10, window.innerHeight - 10 );
 			document.body.appendChild( renderer.domElement );
-            
 			const loader = new THREE.TextureLoader();
+//background
 const bgTexture = loader.load("./three.js-master/examples/textures/background.jpg");
 scene.background = bgTexture;
 //#endregion
-
 //#region test cube	
-	
+	/*
 const geometry = new THREE.BoxGeometry();
 			const material = new THREE.MeshPhongMaterial( { color: 0xFFFFFF } );
 			const cube = new THREE.Mesh( geometry, material );
 			cube.castShadow = true;
     
 			//scene.add( cube );
-			
+			*/
 //#endregion
-
-//#region test arena		
+//#region arena		
 const a = new THREE.PlaneGeometry( 100, 100 );
 const a1 = new THREE.PlaneGeometry( 200, 200 );
 const a2 = new THREE.BoxGeometry( 10, 10 );
@@ -243,11 +244,6 @@ const Texturematerial1 = new THREE.MeshPhongMaterial( { map: texture1 } );
 const Texturematerial2 = new THREE.MeshPhongMaterial( { map: texture2 } );
 //const Texturematerial3 = new THREE.MeshPhongMaterial( { map: texture1 } );
 const Texturematerial4 = new THREE.MeshPhongMaterial( { map: texture4 } );
-
-			const b = new THREE.MeshPhongMaterial( { color: 0x0022CC } );
-			const c = new THREE.MeshPhongMaterial( { color: 0xCC5500 } );
-			const d = new THREE.MeshPhongMaterial( { color: 0xCC0022 } );
-			const e = new THREE.MeshPhongMaterial( { color: 0xFFFF00 } );
 			const f = new THREE.MeshPhongMaterial( { color: 0xFFFFFF } );
 
 			const plane = new THREE.Mesh( a,Texturematerial4 );
@@ -300,14 +296,25 @@ const color = 0xFFFFFF;
 			
 //#endregion
 //#region player
+let bullettime = 10;
+let boost = false;
+let canboost = false;
+//variables
+	const baseSpeed = 0.15;
+	let speed = baseSpeed;	
+	let Hitbox = 1.6;
+	let HP = 20;
+	let score = 0;
+	let step = 0;
 			camera.position.set(0,1,5);
-			const geometry1 = new THREE.BoxGeometry();
-			const material1 = new THREE.MeshPhongMaterial( { color: 0xFF0088 } );
+			
 			const plr = new THREE.Mesh( geometry, material );
 			plr.position.z = -5;
 			const plrdwn = new THREE.Mesh(geometry,material);
 			plrdwn.position.y = -1;
-			plr.castShadow =false;
+			plr.castShadow =true;
+			plrdwn.castShadow = true;
+
 
 
 			const material2 = new THREE.MeshPhongMaterial( { color: 0xBBBBBB } );
@@ -340,8 +347,6 @@ const color = 0xFFFFFF;
 			
 //#endregion
 //plr projectile 
-
-//class
 class proj{
 	constructor(obj,rot,fwd) {
     this.obj = obj;
@@ -350,11 +355,20 @@ class proj{
 	this.fwd = fwd;
   }
 }
-let HP = 20;
-let score = 0;
+//enemy projectile class
+class Eproj{
+	constructor(obj,eX,eZ) {
+    this.obj = obj;
+	this.time = 500;
+	this.eX = eX;
+	this.eZ = eZ;
+  }
+}
+//UI
 const hpshow = document.getElementById("displayHP");
 const deathmsg = document.getElementById("deathmsg");
 const scoreshow = document.getElementById("displayscore");
+const dash = document.getElementById("displaydash");
 function OnScoreChange(){
 	score ++;
 	scoreshow.innerHTML = "Score: "+score;
@@ -372,15 +386,15 @@ else {
 	HP-= 1;
 }
 }
-let mouse = false;
-let bullets = [];
-
-const material8 = new THREE.MeshPhongMaterial( { color: 0xFF0000 } );
 
 
 
-let targets = [];
+
+
+
+
 /*
+//const material8 = new THREE.MeshPhongMaterial( { color: 0xFF0000 } );
 for (let r = 0; r < 20;r++){
 const cuba = new THREE.Mesh(geometry,material8);
 cuba.position.y = -1;
@@ -392,10 +406,8 @@ scene.add (cuba);
 }
 
 */
-const geometry5 = new THREE.BoxGeometry();
-			const material5 = new THREE.MeshBasicMaterial( { color: 0x88FF88 } );
-			
-		let step = 0;
+
+
 		window.addEventListener("click", () =>{
 			mouse = false;
 			let rotFWD = -1;
@@ -435,12 +447,13 @@ scene.add(projectile);
 let pr = new proj(projectile,rot,rotFWD);
 bullets.push(pr);
 
-step = 1;
+step = 0;
 
 		});	
 		
 		document.addEventListener("mousedown", () =>{
 				mouse = true;
+				step = 1;
 		});
 		
 document.addEventListener("mousemove", () => {
@@ -459,30 +472,16 @@ return false;
 
 	return false;
 }
-let Ebullets = [];
-let distance = 1;
-let timer = -1;
-let Eclock = 0;
-class Eproj{
-	constructor(obj,eX,eZ) {
-    this.obj = obj;
-	this.time = 500;
-	this.eX = eX;
-	this.eZ = eZ;
-  }
-}
-let timeC = 0;
-let timeD = 0;
-let timeE = 0;
-let amount = 5;
-let bullettime = 10;
-let boost = false;
-let canboost = false;
-const dash = document.getElementById("displaydash");
+
+
+
 function animate() {
 				requestAnimationFrame( animate );
 
-	dash.innerHTML = timeE;
+
+
+	//#region boost
+		dash.innerHTML = timeE;
 	if(canboost && Kspace){
 	   boost = true;
 	   }
@@ -490,7 +489,7 @@ function animate() {
 	if(!boost && timeE < 500){
 timeE += 1;
 		bullettime = 10;
-	speed = 0.1;
+	speed = baseSpeed;
 	if(timeE > 250){
 	canboost = true;
 	}
@@ -499,7 +498,7 @@ timeE += 1;
 		canboost = false;
 	timeE -= 15;
 		bullettime = 2;
-	speed = 0.1 + (timeE/250);
+	speed = baseSpeed + (timeE/250);
 	
 	if(timeE < 0){
 	boost = false;
@@ -507,26 +506,9 @@ timeE += 1;
 	}	
 		
 	}
-	
-	/*
-	if(timeE < 50 && Kspace){
-	timeE += 1;
-		if(Kspace){
-			speed = 0.6 + (timeE*-1);
-		bullettime = 2;
-		}
-	
-	
-	}
-	else if (timeE > -100){
-	timeE --;
-		speed = 0.06;
-		bullettime = 10;
-	}
-	*/
-	
+	//#endregion
 
-
+	//#region autofire
 if(timeD < 0 && mouse){
 timeD = bullettime;
 			
@@ -573,8 +555,11 @@ step = 1;
 else {
 	timeD--;
 }
+//#endregion
+
+//#region enemy respawn
 if(timeC < 0){
-	timeC = 900;
+	timeC = 1000;
 	
 	for (let j = 0; j < targets.length;j++){
 		scene.remove(targets[j]);
@@ -602,7 +587,7 @@ loaderGLTF.load( './skull_downloadable/scene.gltf', function ( gltf ) {
 				targets[r].add(gltf.scene);
 				cloned=true;
 		}
-		else{
+		else if (targets[r] != undefined){
 			targets[r].add(gltf.scene.clone());
 		}
 	
@@ -632,10 +617,11 @@ amount = amount + 5;
 else {
 	timeC--;
 }
+//#endregion
 	
 
 
-				//plr projectiles and targets
+				//target movement
 				for (let j = 0; j < targets.length;j++){
 					if(targets[j].position.y > -1){
 						targets[j].position.y -= 0.1;
@@ -645,19 +631,23 @@ else {
 		targets[j].rotation.z += 0.03;
 	
 		}
-	let hit = false;
+//plr bullets
 for (let i = 0; i < bullets.length; i++){
+	//destroy if null
 if(bullets[i].obj == null){
 	bullets.pop();
 }
+	//update position
 	bullets[i].obj.position.x += 0.5*bullets[i].rot;
 	bullets[i].obj.position.z += 0.5*bullets[i].fwd;
 	bullets[i].time --;
+	//destroy if too old
 	if(bullets[i].time < 0){
 		scene.remove(bullets[i].obj);
 		bullets.splice(i,1);
 		step = 0;
 	}
+	//collision
 	for (let j = 0; j < targets.length;j++){
 	
 		if(Collide(bullets[i].obj,targets[j],distance)){
@@ -696,9 +686,10 @@ else {
 
 	timer--;
 }
-
+//collision pos <= camera pos
 plrdwn.position.x = plr.position.x;
 plrdwn.position.z = plr.position.z;
+//update enemy bullet positions
 for (let i = 0; i < Ebullets.length;i++){
 
 Ebullets[i].obj.position.x += 0.006* Ebullets[i].eX;
@@ -709,8 +700,8 @@ if(Ebullets.time < 0){
 	Ebullets.splice(i,1);
 }
 
-
-if(Collide(Ebullets[i].obj,plrdwn,distance+0.6) && !boost){
+//hitting player
+if(Collide(Ebullets[i].obj,plrdwn,Hitbox) && !boost){
 
 	scene.remove(Ebullets[i].obj);
 	Ebullets.splice(i,1);
@@ -719,12 +710,12 @@ if(Collide(Ebullets[i].obj,plrdwn,distance+0.6) && !boost){
 }
 
 
-//target projectiles
+//target projectiles spawn
 if(Eclock < 0){
 Eclock = 100;
 
 	for(let i = 0; i < targets.length;i++){	
-		const material10 = new THREE.MeshBasicMaterial(0xFFFFFF);
+		
 		const bullet = new THREE.Mesh( geometry5, material10 );
 			bullet.castShadow = true;
 			bullet.position.y = targets[i].position.y;
@@ -734,43 +725,7 @@ Eclock = 100;
 			scene.add(bullet);
 			const buit = new Eproj(bullet,(plr.position.x+(Math.random()*15-2)) - targets[i].position.x,(plr.position.z+(Math.random()*15 - 2)) - targets[i].position.z);
 			Ebullets.push(buit);
-			/*
-		if(targets[i].position.x > plr.position.x){
-			if(targets[i].position.z > plr.position.z){
-			
-				const buit = new Eproj(bullet,1,1);
-				Ebullets.push(buit);
-				
-				
-			}
-		}
-		if(targets[i].position.x < plr.position.x){
-			if(targets[i].position.z > plr.position.z){
-			
-				const buit = new Eproj(bullet,-1,1);
-				Ebullets.push(buit);
-				
-				
-			}
-		}
-		if(targets[i].position.x > plr.position.x){
-			if(targets[i].position.z < plr.position.z){
-			
-				const buit = new Eproj(bullet,1,-1);
-				Ebullets.push(buit);
-				
-				
-			}
-		}
-		if(targets[i].position.x < plr.position.x){
-			if(targets[i].position.z < plr.position.z){
-			
-				const buit = new Eproj(bullet,-1,-1);
-				Ebullets.push(buit);
-			
-				
-			}
-		}*/
+		
 	}
 
 }
@@ -795,9 +750,12 @@ let rot = camera.rotation.y / (2 *Math.PI);
 			}
 console.log(rot);
 */
+//#region rotations
+//rotation reset
 if(Math.abs(plr.rotation.y) > 2 * Math.PI){
 				plr.rotation.y = 0;
 			}
+			//the disregarding of pythagorean theorem
 			let rotFWD = 1;
 let rot = plr.rotation.y / Math.PI; let vari = Math.abs(rot);	if(vari > 0.5 &&vari < 1.5){rotFWD *= -1}
 
@@ -829,7 +787,7 @@ else if(rot < 0){
 				let directx = 0;
 				let directz = 0;
 
-				//collisions?!
+				//collisions?! (no)
 				/*
 				if(Kw){
 					camera.position.z -= 0.1*rotFWD;
@@ -1039,9 +997,9 @@ plr.position.x += speed*rot;
 				
 					
 				}
-
+//#endregion
 				
-/*
+				/*
 				if(Ki){
 					camera.rotation.x += 0.01;
 				}
@@ -1062,21 +1020,27 @@ plr.position.x += speed*rot;
 				//camera.rotation.y = THREE.MathUtils.lerp(camera.rotation.y, (mouse.x * Math.PI) / 10, 0.1);
 				//camera.rotation.x = THREE.MathUtils.lerp(camera.rotation.x, (mouse.y * Math.PI) / 10, 0.1);
                
-             
-				gunparts[0].position.x = plr.position.x - 4*rot ;
+             //gun positioning
+			 if(gunparts[0] != undefined){
+				 gunparts[0].position.x = plr.position.x - 4*rot ;
 gunparts[0].position.y = plr.position.y -1.2;
 gunparts[0].position.z = plr.position.z - 4*rotFWD;
 
 gunparts[0].rotation.x = plr.rotation.x;
 gunparts[0].rotation.y = plr.rotation.y+Math.PI;
 gunparts[0].rotation.z = plr.rotation.z;
+			 }
+				
 
 
 				//mouse
-				change = ev.clientX - last;
+				if(ev != undefined){
+					change = ev.clientX - last;
 				last = ev.clientX;
 			plr.rotation.y -= change/50;
 			change /= 5;
+				}
+				
 				//cube.rotation.x += 0.01;
 				//cube.rotation.y += 0.01;
 				renderer.render( scene, camera );
