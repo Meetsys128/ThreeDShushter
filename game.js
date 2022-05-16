@@ -29,7 +29,7 @@ let timeE = 0;
 const geometry = new THREE.BoxGeometry();
 			const material = new THREE.MeshBasicMaterial( { color: 0xFF0088 } );
 const geometry5 = new THREE.BoxGeometry();
-const material5 = new THREE.MeshBasicMaterial( { color: 0xFFFF00 } );
+const material5 = new THREE.MeshBasicMaterial( { color: 0x00FF00 } );
 
 
 //#region controls
