@@ -591,17 +591,26 @@ if(timeC < 0){
 		}
 		HP += 1;
 		hpshow.innerHTML = "HP:"+HP;
+		var cloned = false;
 for (let r = 0; r < amount;r++){
-const mesajarjar = new THREE.BoxGeometry(1,1);
-const cuba = new THREE.Mesh(mesajarjar,material8);
-
+targets.push(new THREE.Object3D( ));
+}
 loaderGLTF.load( './skull_downloadable/scene.gltf', function ( gltf ) {
-    gltf.scene.position.y = 10;
-gltf.scene.position.x = 2**(Math.random())*30 - 40;
-gltf.scene.position.z = 2**(Math.random())*60 - 100;
 
-targets.push(gltf.scene );
-scene.add (gltf.scene );
+	for (let r = 0; r < amount;r++){
+		if(!cloned){
+				targets[r].add(gltf.scene);
+				cloned=true;
+		}
+		else{
+			targets[r].add(gltf.scene.clone());
+		}
+	
+		}
+   
+
+
+
 	
 
 }, undefined, function ( error ) {
@@ -610,7 +619,14 @@ scene.add (gltf.scene );
 
 } );
 
-}
+
+for (let r = 0; r < amount;r++){
+	targets[r].position.y = 10;
+	targets[r].position.x = 2**(Math.random())*30 - 40;
+	targets[r].position.z = 2**(Math.random())*60 - 100;
+	scene.add(targets[r]);
+	}
+
 amount = amount + 5;
 }
 else {
@@ -1046,7 +1062,7 @@ plr.position.x += speed*rot;
 				//camera.rotation.y = THREE.MathUtils.lerp(camera.rotation.y, (mouse.x * Math.PI) / 10, 0.1);
 				//camera.rotation.x = THREE.MathUtils.lerp(camera.rotation.x, (mouse.y * Math.PI) / 10, 0.1);
                
-                console.log(rot+" "+rotFWD);
+             
 				gunparts[0].position.x = plr.position.x - 4*rot ;
 gunparts[0].position.y = plr.position.y -1.2;
 gunparts[0].position.z = plr.position.z - 4*rotFWD;
