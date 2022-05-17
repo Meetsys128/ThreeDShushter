@@ -606,8 +606,8 @@ loaderGLTF.load( './skull_downloadable/scene.gltf', function ( gltf ) {
 
 
 for (let r = 0; r < amount;r++){
-	targets[r].position.y = 10;
-	targets[r].position.x = 2**(Math.random())*30 - 40;
+	targets[r].position.y = 16;
+	targets[r].position.x = 2**(Math.random())*35 - 40;
 	targets[r].position.z = 2**(Math.random())*60 - 100;
 	scene.add(targets[r]);
 	}
