@@ -27,7 +27,7 @@ let timeE = 0;
 
 //general const
 const geometry = new THREE.BoxGeometry();
-			const material = new THREE.MeshBasicMaterial( { color: 0xFF0088 } );
+			const material = new THREE.MeshBasicMaterial( { color: 0xFF00FF } );
 const geometry5 = new THREE.BoxGeometry();
 const material5 = new THREE.MeshBasicMaterial( { color: 0x00FF00 } );
 
@@ -329,6 +329,7 @@ let canboost = false;
           loaderGLTF.load( './gun/scene.gltf', function ( gltf ) {
            
     // gltf.scale(10,10,10);
+	gltf.scene.renderOrder = 100;
         gunparts.push(gltf.scene );
         scene.add (gltf.scene );
             
@@ -606,8 +607,8 @@ loaderGLTF.load( './skull_downloadable/scene.gltf', function ( gltf ) {
 
 
 for (let r = 0; r < amount;r++){
-	targets[r].position.y = 16;
-	targets[r].position.x = 2**(Math.random())*35 - 40;
+	targets[r].position.y = 10+10*Math.random();
+	targets[r].position.x = 2**(Math.random())*35 - 50;
 	targets[r].position.z = 2**(Math.random())*60 - 100;
 	scene.add(targets[r]);
 	}
